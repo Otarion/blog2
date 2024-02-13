@@ -14,7 +14,11 @@ class Controller
         protected Response $response,
         protected Twig $twig,
         protected Session $session
-    ) {}
+    ) {
+        $this->request = $request;
+        $this->twig = $twig;
+        $this->session = $session;
+    }
 
     protected function view(string $template, array $data = []): Response
     {
