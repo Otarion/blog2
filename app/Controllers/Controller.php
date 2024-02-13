@@ -9,22 +9,26 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class Controller
 {
+    protected Request $request;
+    protected Response $response;
+    protected Twig $twig;
+    protected Session $session;
+
     public function __construct(
-        protected Request $request,
-        protected Response $response,
-        protected Twig $twig,
-        protected Session $session
+        Request $request,
+        Response $response,
+        Twig $twig,
+        Session $session
     ) {
         $this->request = $request;
+        $this->response = $response;
         $this->twig = $twig;
         $this->session = $session;
     }
 
-    protected function view(string $template, array $data = []): Response
+    public function view(string $template, array $data = []): Response
     {
-        // On met le contenu de notre réponse ...
         return $this->response->setContent(
-            // Qui sera la vue générée par Twig
             $this->twig->render($template, $data)
         );
     }
